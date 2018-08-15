@@ -1,0 +1,74 @@
+# Example data
+
+```{r}
+library(tidyverse)
+library(quantmod)
+```
+
+
+```{r }
+get_fx_tibble <- function(which_fx) {
+
+  obj_xts <- getFX(which_fx, auto.assign = FALSE) %>% 
+    as.data.frame() %>% 
+    as_tibble(rownames = 'date')
+  
+}
+
+tbl_fx <- map_dfc(
+    c('USD/GBP', 'USD/EUR', 'USD/CAD'), get_fx_tibble
+  ) %>% 
+  select(-date1, -date2) %>% 
+  mutate(date = as.Date(date)) %>% 
+  select_all(gsub, pattern = 'USD.', replacement = '') %>% 
+  tidyr::gather(currency, rate, -date) %>% 
+  group_by(currency) %>% 
+  arrange(date) %>% 
+  mutate(
+      rate_change = rate / dplyr::lag(rate) - 1
+    , normalized_rate = rate / first(rate)
+  ) %>% 
+  ungroup()
+
+save(
+  tbl_fx
+  , file = file.path('data', 'fx.rda')
+)
+```
+
+```{r}
+tbl_fx %>% 
+  ggplot(aes(date, rate, color = currency)) + 
+  geom_line()
+```
+
+```{r}
+tbl_fx %>% 
+  ggplot(aes(date, normalized_rate, color = currency)) + 
+  geom_line()
+```
+
+```{r}
+tbl_fx %>% 
+  ggplot(aes(date, rate_change, color = currency)) + 
+  geom_line()
+```
+
+```{r}
+tbl_fx %>% 
+  select(-rate_change) %>% 
+  tidyr::spread(currency, rate) %>% 
+  ggplot(aes(CAD, GBP)) +
+  geom_point()
+```
+
+A visual inspection of the plot suggests that _changes_ in FX are not as strongly correlated.
+
+```{r}
+tbl_fx %>% 
+  select(-rate) %>% 
+  tidyr::spread(currency, rate_change) %>% 
+  ggplot(aes(CAD, GBP)) +
+  geom_point()
+```
+

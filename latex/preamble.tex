@@ -1,0 +1,16 @@
+% The four lines below are from a comment from Yihui which should make float environments a little prettier, i.e. less whitespace to accomodate placement of figures.
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\topfraction}{0.8}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\floatpagefraction}{0.75}
+
+\usepackage{tabu}
+\usepackage{wrapfig}
+
+\usepackage{fontspec}
+\setmainfont{Arial}
+
+% Here, I'm attempting to print the page headers in title case.
+% https://tex.stackexchange.com/questions/228561/how-to-format-the-header-in-tufte-handout
+% https://www.dickimaw-books.com/latex/novices/html/fontstyle.html
+\renewcommand{\smallcaps}[1]{\normalfont #1}

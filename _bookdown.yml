@@ -1,0 +1,25 @@
+book_filename: "correlation"
+language:
+  ui:
+    chapter_name: "Chapter "
+new_session: yes
+delete_merged_file: true
+before_chapter_script: "scripts/_before_chap.R"
+
+fontsize: 12pt
+monofont: "Source Code Pro"
+monofontoptions: "Scale=0.7"
+
+rmd_files: [
+  
+    "index.Rmd"
+  , "ch_wang.Rmd"
+  , "ch_example_data.Rmd"
+  , "ch_copula_review.Rmd"
+  , "ch_copula_literature.Rmd"
+  , "ch_stochastic_reserving_review.Rmd"
+  , "ch_stochastic_reserving_literature.Rmd"
+  , "ch_solvency_regulation_literature.Rmd"
+  , "ch_references.Rmd"
+
+]

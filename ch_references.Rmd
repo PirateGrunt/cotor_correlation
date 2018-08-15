@@ -1,0 +1,19 @@
+# References {-}
+
+```{r echo=FALSE, message=FALSE, results='hide', warning=FALSE}
+library(magrittr)
+packages <- c(
+    .packages()
+  , 'actuar'
+  , 'dplyr'
+  , 'ggplot2'
+  , 'insuranceData'
+  , 'knitr'
+  , "lubridate"
+) %>% unique()
+
+knitr::write_bib(
+    packages
+  , "packages.bib"
+  , width = 60)
+```

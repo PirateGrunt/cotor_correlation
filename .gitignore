@@ -1,0 +1,11 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.csv
+*.xls*
+*.rda
+_book/*
+_bookdown_files/
+*.rds
+!_book/correlation.pdf

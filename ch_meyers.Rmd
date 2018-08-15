@@ -1,0 +1,128 @@
+# Meyers
+
+```{r}
+library(tidyverse)
+```
+
+## PPT - "Risk and Return - Part 1Introduction to VaR and RAROC"
+
+co-written with Freestone and Nakada
+
+Slide 12
+
+"CorrelationMultiple Line Parameter Uncertainty 
+
+Select $\beta$  from a distribution with E[$\beta$] = 1 and Var[$\beta$] = b.
+For each line h, multiply each loss by $\beta$.
+Generates correlation between lines.
+"
+
+```{r}
+lines <- c("WC", "GL")
+```
+
+```{r}
+beta_prob <- c(1/6, 2/3, 1/6)
+form_betas <- function(b) {
+  c(
+      1 - sqrt(3 * b)
+    , 1
+    , 1 + sqrt(3 * b)
+  )
+}
+
+sum(beta_prob * form_betas(0))
+
+sample(form_betas(0.03), size = 1, prob = beta_prob)
+
+rbeta_param <- function(n, b){
+  sample(form_betas(0.03), size = n, prob = beta_prob, replace = TRUE)
+}
+```
+
+```{r}
+sims <- 1e3
+tbl_loss <- tibble(
+    gl_loss = rlnorm(sims, log(10e3))
+  , wc_loss = rgamma(sims, shape = 2)
+  , beta = sample(form_betas(0.1), size = sims, replace = TRUE, prob = beta_prob)
+  , gl_loss_adj = gl_loss * beta
+  , wc_loss_adj = wc_loss * beta
+)
+```
+
+```{r}
+tbl_loss %>% 
+  ggplot() +
+  geom_point(aes(gl_loss, wc_loss), color = 'blue', alpha = 0.5) +
+  geom_point(aes(gl_loss_adj, wc_loss_adj), color = 'red', alpha = 0.5) +
+  scale_x_log10() + 
+  scale_y_log10() +
+  NULL
+```
+
+Hmm, I'm not convinced. I must be doing something wrong. Let's create a function to construct the tibble and then let's plot only the correlated amounts. 
+
+```{r}
+make_loss <- function(b, ln_loss = 10e3, shape = 2) {
+  tibble(
+    gl_loss = rnorm(sims)
+  , wc_loss = rnorm(sims)
+  , beta = sample(form_betas(b), size = sims, replace = TRUE, prob = beta_prob)
+  , gl_loss_adj = gl_loss * beta
+  , wc_loss_adj = wc_loss * beta
+  , b = b)
+}
+  #   gl_loss = rlnorm(sims, log(ln_loss))
+  # , wc_loss = rgamma(sims, shape = shape)
+```
+
+```{r}
+tbl_loss <- map_dfr(c(0, .03, .05, .1, 0.2, 0.5, 1, 2), make_loss)
+```
+
+```{r }
+tbl_loss %>%
+  ggplot(aes(gl_loss_adj, wc_loss_adj)) +
+  geom_point() +
+  facet_wrap(~b, scales = 'free')
+```
+
+Further questions:
+
+1. Where do we get our common shock model?
+2. How do we parameterize it?
+
+## The Aggregation and Correlation of Insurance Exposure
+
+co-written with Klinker and Lalonde
+
+Page 19, simulation algorithm #2 uses a similar technique. There is a random $\beta$ with $E[\beta] = 1$ and $Var[\beta] = b$. Note, though, that $\beta$ is applied after the losses for each line have been correlated.
+
+The presentation suggested that each pair of losses had the same $\beta$, but that $\beta$ could vary from one pair to the next (see slide 15). Pages 19-20 of the paper suggest that there is one $\beta$ applied to two sets of variables $X_1$ and $X_2$. Let's try that.
+
+```{r}
+sims <- 100
+tbl_loss <- tibble(
+    x_1 = rnorm(sims, sd = 0.2)
+  , x_2 = rnorm(sims, sd = 0.2)
+  , beta = rbeta_param(sims, 2)
+)
+
+samp_beta <- rbeta_param(1, 2)
+tbl_loss %>%
+  ggplot(aes(x_1 * samp_beta, x_2 * samp_beta)) +
+  geom_point()
+```
+
+Or does it suggest that? I've randomly done 10 or 12 plots and they look nothing like what's in the paper. Jesus christ. 
+
+Anyway. Notes/questions:
+
+1. What restrictions do we have on the distribution for $\beta$?
+2. The imputed correlation is sensitive to the variability in the underlying variables. Does this mean that observed correlation is masked when highly skewed distribution are in play? I would almost think the opposite. Cat losses, financial crisis: highly skewed experience, but correlation is evident when large losses occur.
+3. The authors use separate shocks for frequency and severity. Has much work been done on this point?
+
+## Meyers response to Wang
+
+Meyers has it that Wang spends a fair bit of time on correlation caused by parameter uncertainty.

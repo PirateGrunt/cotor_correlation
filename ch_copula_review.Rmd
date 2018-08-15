@@ -1,0 +1,88 @@
+# Copula refresher
+
+What's a copula? It's a multivariate distribution, with support on $\Re^N$. We use them to simulate multivariate losses which need not be independent and identically distributed.
+
+## Support in R packages
+
+Comes primarily from the `copula` package though there are some others. 
+
+```{r include = FALSE}
+library(gridExtra)
+library(tidyverse)
+```
+
+```{r}
+library(copula)
+```
+
+## Visualize multivariate data
+
+### Simulations
+
+### Actual data
+
+Load in our sample FX data.
+
+```{r}
+load(
+  file = file.path('data', 'fx.rda')
+)
+```
+
+```{r}
+mat_obs <- tbl_fx %>% 
+  select(date, currency, rate_change) %>% 
+  filter(!is.na(rate_change)) %>% 
+  tidyr::spread(currency, rate_change) %>% 
+  select(-date) %>% 
+  as.matrix()
+
+mat_pseudo <- mat_obs %>% 
+  copula::pobs()
+```
+
+
+```{r }
+plt_obs <- mat_obs %>% 
+  as.data.frame() %>% 
+  ggplot(aes(CAD, EUR)) + 
+  geom_point()
+
+plt_pseudo <- mat_pseudo %>% 
+  as.data.frame() %>% 
+  ggplot(aes(CAD, EUR)) + 
+  geom_point()
+
+grid.arrange(plt_obs, plt_pseudo, nrow = 1)
+```
+
+## Fitting a copula
+
+[@Charpentier] references four methods for fitting a copula. The example below will use maximum likelihood.
+
+```{r}
+fit_fx <- fitCopula(
+    gumbelCopula(dim = 3)
+  , data = mat_pseudo
+  , method = 'ml'
+)
+
+fit_fx
+confint(fit_fx)
+```
+
+Another example from [@Charpentier] using loss and ALAE data.
+
+```{r}
+library(CASdatasets)
+data("lossalae")
+```
+
+```{r }
+lossalae %>% 
+  ggplot(aes(Loss, ALAE)) + 
+  geom_point() + 
+  scale_x_log10() + 
+  scale_y_log10()
+```
+

@@ -1,0 +1,5 @@
+# Revisiting Wang
+
+A brief set of notes on [@Wang]; a seminal paper on portfolio modeling for insurance.
+
+Thoughts, thinkity, thunk.

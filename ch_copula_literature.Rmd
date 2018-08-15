@@ -1,0 +1,37 @@
+# Copula literature review
+
+## Textbooks
+
+There are at least two textbooks which give a foundational presentation of copulas for actuaries. The first is [@Charpentier]. I have a physical copy of this book and it's pretty good. The second is [@Parodi], which I'd never heard of until I did a search on O'Reilly's Safari service. It's very broad, but the chapter on multiline modeling looks promising.
+
+[@Nelsen] is a book that I borrowed from a colleague in Munich. Hoo-boy. The first chapter was super mathy and not terribly grounded. I couldn't get past it. Enter at your own risk.
+
+[@Hofert] looks promising. Against my better judgment, I might buy a copy. It was written by the same people who wrote the `copula` package, so there you are.
+
+[@Joe] is another interesting one that I stumbled across. Harry Joe - the author - gets name checked in [@MultivariateCopulas]. 
+
+## Variance
+
+* Multivariate Copulas for Financial Modeling  [@MultivariateCopulas]
+
+* Dependence Models and the Portfolio Effect [@DependenceModels]
+
+* Quantifying Correlated Reinsurance Exposures with Copulas [@QuantifyingCorrelatedReinsurance]
+
+* Tails of copulas
+
+Here, Venter [@VenterTails] talks through some issues about dependence in the tail of the copula.
+
+Venter introduces measurements for right and left tail concentration:
+
+$$R(z) = Pr(U > z | V > z)$$
+
+### Multivariate Copulas for Financial Modeling 
+
+[@MultivariateCopulas] looks at the issues associated with copulas higher than bivariate. 
+
+We learn about a few new copulas: the IT, and the Joe.
+
+As an example, the authors fit several copulas to currency exchange data.
+
+
