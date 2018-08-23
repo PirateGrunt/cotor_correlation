@@ -1,3 +1,11 @@
 # Stochastic Reserving Literature
 
 This will mirror the methodology review, once I figure out how that's structured.
+
+## Tarbell
+
+Frequently cited as the first loss reserving paper, Tarbell's paper "Incurred But Not Reported Claim Reserves" [@Tarbell] appeared in 1934. We include this largely for historical 
+
+## Inflation
+
+[@ButsicInflation]
