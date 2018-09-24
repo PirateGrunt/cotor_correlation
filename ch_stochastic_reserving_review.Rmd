@@ -8,8 +8,8 @@ library(tidyverse)
 ```
 
 ```{r}
-tbl_njm <- raw::NJM_WC %>% 
-  select(-GroupCode, -Company, -Single) %>% 
+tbl_njm <- raw::NJM_WC %>%
+  select(-GroupCode, -Company, -Single) %>%
   mutate(
       prior_cumulative_paid = dplyr::lag(CumulativePaid)
     , incremental_paid = coalesce(
@@ -19,13 +19,12 @@ tbl_njm <- raw::NJM_WC %>%
     , upper = DevelopmentYear <= 1997
   )
 
-tbl_link_ratio <- tbl_njm %>% 
-  filter(upper) %>% 
-  group_by(Lag) %>% 
+tbl_link_ratio <- tbl_njm %>%
+  filter(upper) %>%
+  group_by(Lag) %>%
   summarise(
     link_ratio = sum(CumulativePaid) / sum(prior_cumulative_paid)
-  ) %>% 
-  ungroup() %>% 
+  ) %>%
+  ungroup() %>%
   mutate(Lag = Lag - 1)
 ```
-
