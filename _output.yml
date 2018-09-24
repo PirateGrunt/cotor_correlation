@@ -2,6 +2,7 @@ bookdown::tufte_book2:
   includes:
     in_header: latex/preamble.tex
   latex_engine: xelatex
+  citation_package: natbib
   keep_tex: yes
   pandoc_args: [--top-level-division=chapter]
   highlight: pygments

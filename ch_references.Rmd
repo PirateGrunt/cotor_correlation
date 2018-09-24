@@ -1,4 +1,4 @@
-# References {-}
+`r if (knitr::is_html_output()) '# References {-}'`
 
 ```{r echo=FALSE, message=FALSE, results='hide', warning=FALSE}
 library(magrittr)

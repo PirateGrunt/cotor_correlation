@@ -1,3 +1,62 @@
 # Stochastic Reserving Literature
 
-This will mirror the methodology review, once I figure out how that's structured.
+## The fundamental question
+
+Or, possibly questions. Correlation is an inherently multivariate approach. Loss reserving tends to be univariate.
+
+## The emergence of stochastic loss reserving
+
+In a dreadful bit of editing, I'll first talk about the heuristic/deterministic approaches to loss reserving. This is the "meanwhile" part of our story. An early reference comes from Tarbell. Bornhuetter-Ferguson appears in 1972. Stanard shows up in 198?.
+
+The earliest reference that I've seen to stochastic reserving, so far, has been something from Hachemeister and Stanard. This appears to have been a presentation at the ASTIN colloquium in Portugal in 1975. Although this paper is mentioned in quite a number of locations, specific citations vary. For instance, [@TaylorMcGuire] refer to it having appeared it at the spring meeting of the CAS. The CAS website [@CAS-bum-link] lists ASTIN colloquium, but does not provide a link.
+
+Whatever. For about 15 years now, I had thought that the next reference came from [@Zehwirth1994], which - in my brain - had appeared in 1980. I was mistaken. Zehnwirth appeared in 1994. Possibly, I fixed that number in my head when I saw the year for [@Christofides1980]. However, I'm pretty sure that _this_ is also wrong. The Christofides reference is for a textbook from the Institute of Actuaries, published in 1989. 
+
+(Fun fact: [@Christofides] gets name checked on Markus Gesman's blog (https://magesblog.com/post/2013-01-08-reserving-based-on-log-incremental/), based on a blog post that I wrote!)
+
+And again, whatever. There is a paper from Erhard Kremer which appeared in 1982 in the Scandanavian Actuarial Journal. I don't have access to it, but the title "IBNR CLAIMS AND THE TWO-WAY MODEL OF ANOVA" sounds very much like the method which Christofides uses.
+
+[@Verrall1991] also considers loglinear models. Article is behind a paywall.
+
+[@DeJongAndZehnwirth1983] produced something.
+
+We can say [@Taylor1986] included material on Hachemeister and Stanard. (See here: https://actuaries.asn.au/Library/Events/Conventions/2007/8.e_Conv07_ppt_Taylor_Recent%20stochastic%20developments%20of%20the%20chain%20ladder.pdf).I don't have access to a copy of the Taylor text, so will have to take his word for it.
+
+Subsequent references are [@Mack1991], [@Neuhaus2004]
+
+## Multivariate loss reserving
+
+[@Braun-2004]
+
+### Reserving and credibility
+
+This is not correlations per se, but it's definitely in that direction. Credibility presumes a multivariate (categorical) data structure. So, at a minimum we are not looking at a block of reserves in isolation.
+
+## Recent stuff
+
+[@HappMeierMerz] This is a difficult one.
+
+##
+
+To sort:
+
+* file:///home/mojo/Downloads/crm2-D5.pdf
+* file:///home/mojo/Downloads/Claims%20Reserving%20Manual%20V2%20complete.pdf
+* file:///home/mojo/Downloads/Claims%20Reserving%20Manual%20V1%20complete.pdf
+* file:///home/mojo/Downloads/sm0201.pdf
+* https://www.casact.org/research/dare/index.cfm?fa=view&abstrID=5248
+* https://www.casact.org/research/dare/index.cfm?fa=view&abstrID=6735
+* https://www.actuaries.org/LIBRARY/ASTIN/vol39no1/35.pdf
+* https://www.casact.org/research/dare/index.cfm?fa=view&abstrID=3390
+* https://www.casact.org/research/dare/index.cfm?fa=view&abstrID=3183
+* https://www.casact.org/pubs/forum/94spforum/94spf393.pdf
+* https://www.casact.org/research/dare/index.cfm?fa=view&abstrID=2516
+* https://www.cass.city.ac.uk/__data/assets/pdf_file/0018/354600/prediction-rbns-ibnr-claims-cass-knowledge.pdf
+* https://www.casact.org/research/dare/index.cfm?fa=view&abstrID=2911
+* https://www.casact.org/pubs/forum/98fforum/zehnwirth.pdf
+* https://www.casact.org/research/dare/index.cfm?fa=view&abstrID=640
+* https://www.casact.org/research/dare/index.cfm?fa=view&abstrID=2378
+* https://www.casact.org/research/dare/index.cfm?fa=view&abstrID=2517
+* https://www.casact.org/pubs/forum/94spforum/94spf447.pdf
+* https://www.casact.org/research/dare/index.cfm?fa=view&abstrID=627
+* file:///home/mojo/Downloads/0157-0181.pdf

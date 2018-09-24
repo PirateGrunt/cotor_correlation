@@ -1,5 +1,31 @@
 # Stochastic Reserving Review
 
-## Mack
+This will largely follow the thread of [@TaylorMcGuire].
 
-## Other stuff
+```{r}
+library(raw)
+library(tidyverse)
+```
+
+```{r}
+tbl_njm <- raw::NJM_WC %>% 
+  select(-GroupCode, -Company, -Single) %>% 
+  mutate(
+      prior_cumulative_paid = dplyr::lag(CumulativePaid)
+    , incremental_paid = coalesce(
+          CumulativePaid - prior_cumulative_paid
+        , CumulativePaid
+      )
+    , upper = DevelopmentYear <= 1997
+  )
+
+tbl_link_ratio <- tbl_njm %>% 
+  filter(upper) %>% 
+  group_by(Lag) %>% 
+  summarise(
+    link_ratio = sum(CumulativePaid) / sum(prior_cumulative_paid)
+  ) %>% 
+  ungroup() %>% 
+  mutate(Lag = Lag - 1)
+```
+
